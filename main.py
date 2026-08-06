@@ -1,34 +1,23 @@
-from crud import crear_autor,crear_libro,buscarxid,buscar_libro_xtitulo,eliminar_autor
-from modelos import db_init
-from datetime import date
+"""
+main.py
+
+Punto de entrada de la aplicación. Inicializa la base de datos
+(crea el archivo repuestos.db y la tabla si no existen) y arranca
+el menú interactivo.
+"""
+
+from db import cerrar, inicializar_db
+from cli.menu import ejecutar_menu
 
 
-def main():
-    db_init()
-    autoreli=eliminar_autor(14)
-    print(autoreli)
-    #nuevoautor()
-    #nuevolibro()
-    #crear usuario
-    aut_obj={
-        "nombre": "pepe", 
-        "apellidoAutor":"loao",
-       "pais":"Arg"}
-    
-    #autor=crear_autor(aut_obj)
-    #print(autor)
-    
-    libro_obj={
-        "titulo":"arda",
-        "autor": 14,
-        "editorial":"alras",
-        "fecha_de_publicacion":date(2020, 5, 5)   }
+def main() -> None:
+    """Inicializa la base y ejecuta el menú hasta que el usuario decida salir."""
+    inicializar_db()
+    try:
+        ejecutar_menu()
+    finally:
+        cerrar()
 
-    libro=crear_libro(libro_obj)
-    print("libro:", libro)
-    libros=buscar_libro_xtitulo("se")
-    for libro in libros:
-        print(libro.titulo)
-if __name__== "__main__":
 
+if __name__ == "__main__":
     main()
